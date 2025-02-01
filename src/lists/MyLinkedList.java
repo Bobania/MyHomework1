@@ -67,7 +67,7 @@ public class MyLinkedList<T> implements MyListInterface<T> {
      */
     @Override
     public void add(int index, T element) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         Node<T> newNode = new Node<>(element);
@@ -130,6 +130,9 @@ public class MyLinkedList<T> implements MyListInterface<T> {
         } else { // Удаление последнего элемента
             tail = toRemove.prev;
         }
+        toRemove.prev = null;
+        toRemove.next = null;
+        toRemove.data = null;
         size--;
     }
 
@@ -138,6 +141,15 @@ public class MyLinkedList<T> implements MyListInterface<T> {
      */
     @Override
     public void clear() {
+        Node<T> current = head;
+        while (current != null) {
+            Node<T> next = current.next;
+            current.prev = null;
+            current.next = null;
+            current.data = null;
+            current = next;
+        }
+
         head = null;
         tail = null;
         size = 0;
@@ -151,13 +163,13 @@ public class MyLinkedList<T> implements MyListInterface<T> {
     @Override
     public void sort(Comparator<? super T> comparator) {
         if (size < 2) return; // Нечего сортировать
-        Object[] array = new Object[size];
+        T[] array = (T[]) new Object[size];
         Node<T> current = head;
         for (int i = 0; i < size; i++) {
             array[i] = current.data;
             current = current.next;
         }
-        Arrays.sort(array);
+        Arrays.sort(array, comparator);
         current = head;
         for (Object element : array) {
             current.data = (T) element;

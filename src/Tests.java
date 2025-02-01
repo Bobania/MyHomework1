@@ -2,6 +2,7 @@ import lists.MyArrayList;
 import lists.MyLinkedList;
 
 import java.util.Comparator;
+
 /**
  * Tests класс для тестирования MyArrayList и MyLinkedList
  */
@@ -9,13 +10,13 @@ public class Tests {
     public static void main(String[] args) {
         // Тестирование MyArrayList
         System.out.println("Тестирование MyArrayList:");
-        MyArrayList<Integer> arrayList = new MyArrayList<>();
+        MyArrayList<Integer> arrayList = new MyArrayList<>(4);
 
         // Добавление элементов
+        arrayList.add(0);
+        arrayList.add(1);
+        arrayList.add(2);
         arrayList.add(3);
-        arrayList.add(8);
-        arrayList.add(4);
-        arrayList.add(5);
         System.out.println("ArrayList: ");
         printList(arrayList);
 
@@ -31,6 +32,9 @@ public class Tests {
         System.out.println("LinkedList: ");
         printLinkedList(linkedList);
 
+        linkedList.sort(Comparator.naturalOrder());
+        System.out.println("LinkedList: ");
+        printLinkedList(linkedList);
     }
 
 

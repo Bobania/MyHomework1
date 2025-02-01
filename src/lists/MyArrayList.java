@@ -23,6 +23,18 @@ public class MyArrayList<T> implements MyListInterface<T> {
         elements = new Object[DEFAULT_CAPACITY];
         size = 0;
     }
+    /**
+     * Конструктор, в котором можно задать размер массива
+     *
+     * @param capacity размер массива
+     */
+    public MyArrayList(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Размер массива не может быть отрицательным");
+        }
+        elements = new Object[capacity];
+        size = 0;
+    }
 
     /**
      * Добавляет элемент в конец списка
@@ -44,7 +56,7 @@ public class MyArrayList<T> implements MyListInterface<T> {
 
     public void add(int index, T element) {
         checkCapacity();
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         System.arraycopy(elements, index, elements, index + 1, size - index);
@@ -61,7 +73,7 @@ public class MyArrayList<T> implements MyListInterface<T> {
      */
     @Override
     public T get(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
         }
         return (T) elements[index];
